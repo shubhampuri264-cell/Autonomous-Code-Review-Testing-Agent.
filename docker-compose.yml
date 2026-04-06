@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: agent
+      POSTGRES_PASSWORD: agent_dev
+      POSTGRES_DB: agent_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  sandbox-python:
+    build:
+      context: ./sandbox/dockerfiles
+      dockerfile: Dockerfile.python
+    profiles:
+      - sandbox
+
+  sandbox-node:
+    build:
+      context: ./sandbox/dockerfiles
+      dockerfile: Dockerfile.node
+    profiles:
+      - sandbox
+
+volumes:
+  pgdata:

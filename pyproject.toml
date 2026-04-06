@@ -1,0 +1,14 @@
+[project]
+name = "autonomous-code-review-agent"
+version = "1.0.0"
+description = "AI-powered system that autonomously generates, executes, and iterates on test suites"
+requires-python = ">=3.11"
+authors = [{ name = "Shubham Puri" }]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100

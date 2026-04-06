@@ -1,0 +1,12 @@
+FROM python:3.11-slim
+
+# No network access at runtime — install deps at build time
+RUN pip install --no-cache-dir pytest pytest-cov coverage
+
+WORKDIR /workspace
+
+# Security: non-root user
+RUN useradd -m sandbox
+USER sandbox
+
+CMD ["python", "-m", "pytest", "--tb=short", "-v"]
