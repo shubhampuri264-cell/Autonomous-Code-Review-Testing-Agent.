@@ -14,7 +14,16 @@ class Settings(BaseSettings):
     # LLM
     gemini_api_key: Optional[str] = None
     anthropic_api_key: Optional[str] = None
-    llm_provider: str = "gemini"  # "gemini" or "anthropic"
+    llm_provider: str = "gemini"  # "gemini" | "anthropic" | "bedrock"
+    gemini_model: str = "gemini-2.5-flash"
+    anthropic_model: str = "claude-sonnet-4-6"
+    bedrock_model: str = "anthropic.claude-sonnet-4-20250514-v1:0"
+    aws_region: str = "us-east-1"
+
+    # LLM guardrails (rate-limit + per-run token budget kill switch)
+    llm_min_request_interval: float = 1.0  # seconds between LLM calls
+    llm_max_retries: int = 3
+    token_budget_per_run: int = 200_000  # 0 disables the kill switch
 
     # GitHub
     github_token: Optional[str] = None
@@ -37,7 +46,11 @@ class Settings(BaseSettings):
     default_coverage_threshold: int = 80
     max_iterations: int = 3
 
-    model_config = {"env_file": ".env", "env_file_encoding": "utf-8"}
+    model_config = {
+        "env_file": ".env",
+        "env_file_encoding": "utf-8",
+        "extra": "ignore",
+    }
 
 
 settings = Settings()

@@ -1,7 +1,7 @@
 """LangGraph agent state schema."""
 
-from typing import TypedDict, Optional
-from dataclasses import dataclass, field
+import operator
+from typing import Annotated, TypedDict
 
 
 class AgentState(TypedDict, total=False):
@@ -37,6 +37,10 @@ class AgentState(TypedDict, total=False):
     # Diagnosis
     diagnosis: dict
     patch_plan: dict
+
+    # Cost meter (accumulated across LLM-calling nodes)
+    tokens_used: Annotated[int, operator.add]
+    cost_usd: Annotated[float, operator.add]
 
     # Output
     pr_url: str

@@ -1,7 +1,6 @@
 """TestFile model."""
 
 from pydantic import BaseModel
-from typing import Optional
 
 
 class TestFile(BaseModel):

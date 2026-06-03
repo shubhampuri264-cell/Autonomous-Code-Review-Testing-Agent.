@@ -18,7 +18,6 @@ async def github_webhook(request: Request):
     if not verify_webhook_signature(body, signature, settings.github_webhook_secret):
         raise HTTPException(status_code=403, detail="Invalid webhook signature")
 
-    payload = await request.json()
     event_type = request.headers.get("X-GitHub-Event")
 
     if event_type == "push":

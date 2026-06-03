@@ -1,6 +1,6 @@
 """Repository management endpoints."""
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 
 from api.dependencies import verify_auth, get_db
 from api.schemas.repositories import RepoCreate, RepoResponse

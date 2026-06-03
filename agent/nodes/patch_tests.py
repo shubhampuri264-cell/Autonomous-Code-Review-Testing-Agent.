@@ -1,7 +1,9 @@
 """Apply LLM-generated patches to failing tests."""
 
 from agent.state import AgentState
+from agent.metering import account_usage
 from llm.client import get_llm_client
+from llm.parsers import extract_code
 from llm.prompts.patch_tests import build_patch_prompt
 
 
@@ -10,6 +12,7 @@ async def patch_tests(state: AgentState) -> dict:
     llm = get_llm_client()
     diagnosis = state.get("diagnosis", {})
     generated_tests = dict(state["generated_tests"])
+    responses = []
 
     # For each failing test file, generate a patched version
     for source_file, test_content in generated_tests.items():
@@ -24,7 +27,8 @@ async def patch_tests(state: AgentState) -> dict:
             local_path=state["local_path"],
         )
 
-        patched = await llm.generate(prompt)
-        generated_tests[source_file] = patched
+        response = await llm.generate(prompt)
+        responses.append(response)
+        generated_tests[source_file] = extract_code(response.text)
 
-    return {"generated_tests": generated_tests}
+    return {"generated_tests": generated_tests, **account_usage(state, *responses)}

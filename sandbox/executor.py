@@ -63,8 +63,8 @@ async def run_tests_in_sandbox(
             detach=True,
         )
 
-        # Wait with timeout
-        result = container.wait(timeout=SANDBOX_TIMEOUT_SECONDS)
+        # Block until the container finishes or the timeout fires
+        container.wait(timeout=SANDBOX_TIMEOUT_SECONDS)
         output = container.logs().decode("utf-8")
 
         # Cleanup

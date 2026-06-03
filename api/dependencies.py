@@ -1,10 +1,9 @@
 """FastAPI dependency injection."""
 
-from fastapi import Depends, HTTPException, Header
+from fastapi import HTTPException, Header
 from typing import Optional
 
 from db.client import get_supabase_client
-from core.config import settings
 
 
 async def get_db():

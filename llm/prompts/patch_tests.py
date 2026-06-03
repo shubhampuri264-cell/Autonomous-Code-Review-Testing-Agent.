@@ -1,5 +1,7 @@
 """Prompt templates for test patching."""
 
+from pathlib import Path
+
 
 def build_patch_prompt(
     test_content: str,
@@ -12,8 +14,7 @@ def build_patch_prompt(
     # Read the source file for context
     source_code = ""
     try:
-        with open(f"{local_path}/{source_file}", "r") as f:
-            source_code = f.read()
+        source_code = (Path(local_path) / source_file).read_text(encoding="utf-8")
     except FileNotFoundError:
         pass
 

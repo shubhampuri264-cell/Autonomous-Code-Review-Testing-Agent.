@@ -1,6 +1,5 @@
 """Unit tests for AST analyzer."""
 
-import pytest
 
 
 class TestDetectLanguage:
