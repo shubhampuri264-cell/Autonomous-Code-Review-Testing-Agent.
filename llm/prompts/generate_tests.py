@@ -6,6 +6,7 @@ def build_test_generation_prompt(
     ast_summary: dict,
     framework: str,
     language: str,
+    module_name: str,
 ) -> str:
     """Build the LLM prompt for generating test files."""
 
@@ -33,7 +34,8 @@ def build_test_generation_prompt(
 - Include at least one happy path and one unhappy path per function
 - Tests must be self-contained — no external dependencies or network calls
 - Use descriptive test names that explain what is being tested
-- Import the source module correctly based on the file structure
+- The module under test is importable as `{module_name}`. Import exactly from that
+  module, e.g. `from {module_name} import <name>` — do not invent any other module path.
 
 ## Output
 Return ONLY the test file code, no explanations or markdown fences.

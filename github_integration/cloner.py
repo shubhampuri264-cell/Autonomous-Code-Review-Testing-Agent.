@@ -23,7 +23,9 @@ async def clone_repository(repo_url: str, branch: str = "main") -> Tuple[str, li
         dirs[:] = [d for d in dirs if d != ".git"]
         for f in files:
             rel_path = os.path.relpath(os.path.join(root, f), tmp_dir)
-            file_list.append(rel_path)
+            # Normalize to POSIX separators so paths stay valid downstream
+            # (AST map keys, generated test names, Linux sandbox, PR diffs).
+            file_list.append(rel_path.replace(os.sep, "/"))
 
     return tmp_dir, file_list
 

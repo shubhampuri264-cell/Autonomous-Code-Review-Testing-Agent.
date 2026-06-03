@@ -1,0 +1,25 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# Node / frontend (API image does not need these)
+frontend/node_modules/
+node_modules/
+frontend/dist/
+
+# VCS & local
+.git/
+.gitignore
+.github/
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Local docs/scratch
+*.md
+look-at-the-current-scalable-curry.md

@@ -36,7 +36,8 @@ class Settings(BaseSettings):
     supabase_key: Optional[str] = None
     supabase_service_role_key: Optional[str] = None
 
-    # Docker
+    # Sandbox / Docker
+    sandbox_backend: str = "local"  # "local" (default, $0) | "fargate" (opt-in, AWS)
     docker_host: str = "unix:///var/run/docker.sock"
     sandbox_memory_limit: str = "512m"
     sandbox_cpu_limit: float = 1.0

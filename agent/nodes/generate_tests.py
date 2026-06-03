@@ -29,12 +29,14 @@ async def generate_tests(state: AgentState) -> dict:
         language = ast_data.get("language", "python")
         framework = TEST_FRAMEWORKS.get(language, "pytest")
 
-        # Build prompt with source code + AST context
+        # Build prompt with source code + AST context. The sandbox mounts the
+        # source as `<stem>.py`, so the test must import it by that stem.
         prompt = build_test_generation_prompt(
             source_code=source_code,
             ast_summary=ast_data,
             framework=framework,
             language=language,
+            module_name=Path(target_file).stem,
         )
 
         # Generate test via LLM and strip any markdown fences

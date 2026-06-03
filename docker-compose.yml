@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   api:
     build: .
@@ -24,6 +22,7 @@ services:
       - pgdata:/var/lib/postgresql/data
 
   sandbox-python:
+    image: agent-sandbox-python
     build:
       context: ./sandbox/dockerfiles
       dockerfile: Dockerfile.python
@@ -31,6 +30,7 @@ services:
       - sandbox
 
   sandbox-node:
+    image: agent-sandbox-node
     build:
       context: ./sandbox/dockerfiles
       dockerfile: Dockerfile.node

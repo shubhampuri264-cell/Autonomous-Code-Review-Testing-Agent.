@@ -14,6 +14,7 @@ class TestGenerateTests:
             ast_summary=sample_ast_map["calculator.py"],
             framework="pytest",
             language="python",
+            module_name="calculator",
         )
 
         # Verify prompt contains key elements
